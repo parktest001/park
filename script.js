@@ -1,17 +1,35 @@
-
+let id=0;
+let location_name='Chennai';
 function myfun(){
-	var userEmail = "parktest@gmail.com";
-  var userPass = "cantfind";
 
-  firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
+let a=10;
+var Main=document.getElementById("main");
+Main.innerHTML="";
+var Str="";
+Str+="<table border=1 id='main_tab'>";
+for(var i=1;i<=a;i++)
+{
+  Str+='<tr';
+  Str+='><td><button id="' + i.toString() + '"onclick="store(this.id)">slot ' + i.toString() + '</button></td></tr>';
+}
+Str+="</table>";
+Main.innerHTML=Str;
 
-    window.alert("Error : " + errorMessage);
+localStorage.clear();
 
-    // ...
-    // window.location.href="new.html";
+}
+
+
+function store(elem)
+{
+	localStorage.setItem("storageName",elem);
+	id=localStorage.getItem("storageName");
+	write_to_database(location_name,id);
+ 	
+}
+function write_to_database(Location,park_id)
+{
+	 firebase.database().ref('parking_info/' + Location).set({
+    Parkslot: park_id
   });
-  alert("Hello");
 }
