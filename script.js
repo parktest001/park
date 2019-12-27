@@ -29,7 +29,17 @@ function store(elem)
 }
 function write_to_database(Location,park_id)
 {
-	 firebase.database().ref('parking_info/' + Location).set({
+	 firebase.database().ref('parking_info/' + Location + '/test/').set({
     Parkslot: park_id
   });
+}
+
+function show_key2()
+{
+var ref = firebase.database().ref("parking_info/Chennai/test/Parkslot");
+ref.once("value")
+  .then(function(snapshot) {
+    var key = snapshot.val();
+    alert(key);
+});
 }
